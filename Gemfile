@@ -38,7 +38,7 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-
+gem 'bootstrap-sass'
 gem "bcrypt"
 gem "pg"
 gem "pry-rails"
