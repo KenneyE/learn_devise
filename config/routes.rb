@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'devise/registrations#new'
-
+  devise_for :bets
+  devise_scope :user do
+    root to: "users#show"
+  end
 end

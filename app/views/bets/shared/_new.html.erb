@@ -1,0 +1,7 @@
+<% form_for @bet do | f | %>
+  Title: <%= f.text_field :title %>
+  Premise: <%= f.text_field :premise %>
+  Value: <%= f.text_field :value %>
+
+  <%= f.submit %>
+<% end %>

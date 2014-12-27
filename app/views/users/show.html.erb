@@ -1,0 +1,25 @@
+<h1><%= @user.email %></h1
+
+<%= render 'bets/shared/new' %>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Your Bets</div>
+
+  <table class="table">
+    <thead>
+      <td>Title</td>
+      <td>Premise</td>
+      <td>Value</td>
+    </thead>
+    <tbody>
+      <% @user.bets.each do | bet | %>
+      <tr>
+        <td><%= bet.titel %></td>
+        <td><%= bet.premise %></td>
+        <td><%= bet.value %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
