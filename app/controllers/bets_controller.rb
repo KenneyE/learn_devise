@@ -8,6 +8,12 @@ class BetsController < ApplicationController
     redirect_to current_user
   end
 
+  def destroy
+    bet =  Bet.find_by_id(params[:id])
+    bet.delete
+    redirect_to current_user
+  end
+
   private
   def bet_params
     params.require(:bet).permit(:title, :premise, :amount)

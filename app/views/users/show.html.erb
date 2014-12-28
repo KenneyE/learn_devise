@@ -18,6 +18,8 @@
         <td><%= bet.title %></td>
         <td><%= bet.premise %></td>
         <td><%= bet.amount %></td>
+        <td><%= link_to "Delete Bet", "bets/#{bet.id}", method: "DELETE"%></td>
+
       </tr>
       <% end %>
     </tbody>
