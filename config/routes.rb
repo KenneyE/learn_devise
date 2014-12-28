@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  devise_for :bets
+  resources :bets
+  post 'user_bets/:id', to: 'user_bets#create'
   devise_scope :user do
-    root to: "users#show"
+    root to: "users#show", as: "user"
   end
 end

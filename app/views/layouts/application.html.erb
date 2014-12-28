@@ -51,8 +51,21 @@
   </nav>
   <% end %>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <p class="notice">
+    <% if flash[:notices] %>
+      <% flash[:notices].each do |notice| %>
+        <%= notice %>
+      <% end %>
+    <% end %>
+  </p>
+
+  <p class="alert">
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+        <%= error %>
+      <% end %>
+    <% end %>
+  </p>
 
   <div class="container">
     <%= yield %>

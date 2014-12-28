@@ -1,7 +1,22 @@
-<% form_for @bet do | f | %>
-  Title: <%= f.text_field :title %>
-  Premise: <%= f.text_field :premise %>
-  Value: <%= f.text_field :value %>
+<h3>Create a Bet</h3>
+<div>
+  <%= form_for @bet do | f | %>
 
-  <%= f.submit %>
-<% end %>
+  <div class="input-group">
+    <%= f.label :title, class: "input-group-addon" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="input-group">
+    <%= f.label :premise, class: "input-group-addon"  %>
+    <%= f.text_field :premise, class: "form-control"  %>
+  </div>
+
+  <div class="input-group">
+    <%= f.label :amount, class: "input-group-addon"  %>
+    <%= f.text_field :amount, class: "form-control"  %>
+  </div>
+
+  <%= f.submit class: "btn btn-default"%>
+  <% end %>
+</div>
