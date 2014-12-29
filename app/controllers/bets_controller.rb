@@ -1,7 +1,9 @@
 class BetsController < ApplicationController
   def create
-    if @bet = current_user.bets.create(bet_params)
-      flash[:notice] = ["Bet Successfully Created!"]
+    @bet = current_user.bets.create(bet_params)
+    @bet.creator = current_user
+    if @bet.save!
+      flash[:notices] = ["Bet Successfully Created!"]
     else
       flash[:errors] = @bet.errors.full_messages
     end
@@ -10,12 +12,22 @@ class BetsController < ApplicationController
 
   def destroy
     bet =  Bet.find_by_id(params[:id])
-    bet.delete
+    if bet.creator == current_user
+      bet.delete
+    else
+      user_bet = UserBet.find_by(user: current_user, bet: bet)
+      user_bet.delete
+    end
     redirect_to current_user
+  end
+
+  def search
+    @searched_bets = Bet.search(params[:bet_search]).order("created_at DESC")
+    render "users/show"
   end
 
   private
   def bet_params
-    params.require(:bet).permit(:title, :premise, :amount)
+    params.require(:bet).permit(:title, :premise, :amount, :creator)
   end
 end
