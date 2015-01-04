@@ -7,6 +7,8 @@
       <th>Title</th>
       <th>Premise</th>
       <th>Amount</th>
+      <th>Settle Time</th>
+      <th>Actions</th>
     </thead>
     <tbody>
       <% bets.each do | bet | %>
@@ -14,6 +16,7 @@
         <td><%= bet.title %></td>
         <td><%= bet.premise %></td>
         <td><%= number_to_currency(bet.amount) %></td>
+        <td><%= bet.settle_time.hour %>:<%=bet.settle_time.min %> <%= bet.settle_time.day %>/<%= bet.settle_time.month %> <% if bet.settle_time.past? %>(<b>Bet Has Settled</b>)<% end %></td>
         <td>
           <% if bet.is_user?(current_user) %>
             <%= link_to "Unset Bet",  "bets/#{bet.id}", method: "DELETE"%>
