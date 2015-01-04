@@ -8,7 +8,14 @@ class Bet < ActiveRecord::Base
   belongs_to :creator, class_name: "User", foreign_key: "creator_id"
 
   def self.search(query)
-    where("premise like ?", "%#{query}%")
+    self.where("premise like ? OR title like ?", "%#{query}%", "%#{query}%")
   end
 
+  def self.get_recent(user_id, quantity)
+    Bet.where.not(creator_id: user_id).order("updated_at DESC").limit(quantity)
+  end
+
+  def is_user?(current_user)
+    self.users.include?(current_user) || self.creator == current_user
+  end
 end

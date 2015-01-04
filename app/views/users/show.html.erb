@@ -1,82 +1,23 @@
 <h1><%= @user.email %></h1>
 <h3>Current Balance: <%= number_to_currency(@user.balance) %></h3>
 
-<%= form_tag("bets/search", method: "get") do %>
-<%= label_tag(:bet_search, "Search Bets:") %>
-<%= text_field_tag(:bet_search) %>
-<%= submit_tag("Search") %>
+<p><%= form_tag("search", method: "get") do %>
+  <%= label_tag(:bet_search, "Search Bets:") %>
+  <%= text_field_tag(:bet_search) %>
+  <%= submit_tag("Search", class: "btn btn-default")%>
+<% end %></p>
+
+
+<% unless @searched_bets.nil? %>
+<%= render 'bets/shared/index', bets: @searched_bets, title: "Search Results", is_acceptable: true %>
 <% end %>
 
-<% if !@searched_bets.nil? %>
-<div class="panel panel-primary">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Recently Proposed Bets</div>
 
-  <table class="table table-striped">
-    <thead>
-      <th>Title</th>
-      <th>Premise</th>
-      <th>Amount</th>
-    </thead>
-    <tbody>
-      <% @searched_bets.each do | bet | %>
-      <tr>
-        <td><%= bet.title %></td>
-        <td><%= bet.premise %></td>
-        <td><%= number_to_currency(bet.amount) %></td>
-        <td><%= link_to "Accept Bet", "user_bets/#{bet.id}", method: "POST"%></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<% unless @user.bets.empty? %>
+<%= render 'bets/shared/index', bets: @user.bets, title: "Your Bets", is_acceptable: false %>
 <% end %>
+
+
+<%= render 'bets/shared/index', bets: @recent_bets, title: "Recently Proposed Bets", is_acceptable: true %>
 
 <%= render partial: 'bets/shared/new' %>
-
-<div class="panel panel-primary">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Your Bets</div>
-
-  <table class="table table-striped">
-    <thead>
-      <th>Title</th>
-      <th>Premise</th>
-      <th>Amount</th>
-    </thead>
-    <tbody>
-      <% @user.bets.each do | bet | %>
-      <tr>
-        <td><%= bet.title %></td>
-        <td><%= bet.premise %></td>
-        <td><%= number_to_currency(bet.amount) %></td>
-        <td><%= link_to "Delete Bet", "bets/#{bet.id}", method: "DELETE"%></td>
-
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-<div class="panel panel-primary">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Recently Proposed Bets</div>
-
-  <table class="table table-striped">
-    <thead>
-      <th>Title</th>
-      <th>Premise</th>
-      <th>Amount</th>
-    </thead>
-    <tbody>
-      <% Bet.where.not(creator_id: current_user.id).order("updated_at").limit(20).each do | bet | %>
-      <tr>
-        <td><%= bet.title %></td>
-        <td><%= bet.premise %></td>
-        <td><%= number_to_currency(bet.amount) %></td>
-        <td><%= link_to "Accept Bet", "user_bets/#{bet.id}", method: "POST"%></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>

@@ -1,0 +1,29 @@
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><%= title %></div>
+
+  <table class="table table-striped bet-index">
+    <thead>
+      <th>Title</th>
+      <th>Premise</th>
+      <th>Amount</th>
+    </thead>
+    <tbody>
+      <% bets.each do | bet | %>
+      <tr>
+        <td><%= bet.title %></td>
+        <td><%= bet.premise %></td>
+        <td><%= number_to_currency(bet.amount) %></td>
+        <td>
+          <% if bet.is_user?(current_user) %>
+            <%= link_to "Unset Bet",  "bets/#{bet.id}", method: "DELETE"%>
+
+          <% else %>
+            <%= link_to "Accept Bet", "user_bets/#{bet.id}", method: "POST"%>
+          <% end %>
+      </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

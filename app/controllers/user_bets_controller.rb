@@ -1,4 +1,6 @@
 class UserBetsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @user_bet = UserBet.new(user_id: current_user.id, bet_id: params[:id])
     if @user_bet.save
