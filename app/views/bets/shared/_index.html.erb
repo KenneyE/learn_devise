@@ -16,15 +16,14 @@
         <td><%= bet.title %></td>
         <td><%= bet.premise %></td>
         <td><%= number_to_currency(bet.amount) %></td>
-        <td><%= bet.settle_time.hour %>:<%=bet.settle_time.min %> <%= bet.settle_time.day %>/<%= bet.settle_time.month %> <% if bet.settle_time.past? %>(<b>Bet Has Settled</b>)<% end %></td>
+        <td><%= bet.settle_time.strftime("%l:%M:%S%P %b %d, %Y") %> <% if bet.settle_time.past? %><br />(<b>Bet Has Settled</b>)<% end %></td>
         <td>
           <% if bet.is_user?(current_user) %>
             <%= link_to "Unset Bet",  "bets/#{bet.id}", method: "DELETE"%>
-
           <% else %>
             <%= link_to "Accept Bet", "user_bets/#{bet.id}", method: "POST"%>
           <% end %>
-      </td>
+        </td>
       </tr>
       <% end %>
     </tbody>

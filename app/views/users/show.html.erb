@@ -9,15 +9,15 @@
 
 
 <% unless @searched_bets.nil? %>
-<%= render 'bets/shared/index', bets: @searched_bets, title: "Search Results", is_acceptable: true %>
+  <%= render 'bets/shared/index', bets: @searched_bets, title: "Search Results" %>
 <% end %>
 
 
 <% unless @user.bets.empty? %>
-<%= render 'bets/shared/index', bets: @user.bets, title: "Your Bets", is_acceptable: false %>
+  <%= render 'bets/shared/index', bets: @user.bets, title: "Your Bets"%>
 <% end %>
 
 
-<%= render 'bets/shared/index', bets: @recent_bets, title: "Recently Proposed Bets", is_acceptable: true %>
+<%= render 'bets/shared/index', bets: @recent_bets, title: "Recently Proposed Bets" %>
 
 <%= render partial: 'bets/shared/new' %>

@@ -1,6 +1,7 @@
 class Bet < ActiveRecord::Base
 
-  validates :title, :amount, :premise, :time, presence: true
+  validates :title, :amount, :premise, :settle_time, presence: true
+  before_validation :set_default_settle_time
 
   has_many :user_bets
   has_many :users, through: :user_bets
@@ -17,5 +18,10 @@ class Bet < ActiveRecord::Base
 
   def is_user?(current_user)
     self.users.include?(current_user) || self.creator == current_user
+  end
+
+  private
+  def set_default_settle_time
+      self.settle_time = Time.now.tomorrow if self.settle_time.past?
   end
 end

@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150104025747) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
-    t.time     "settle_time", default: '2000-01-01 03:31:21', null: false
+    t.time     "settle_time", default: '2000-01-01 07:00:00', null: false
   end
 
   create_table "user_bets", force: true do |t|
